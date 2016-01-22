@@ -1,0 +1,5 @@
+{
+    "concatTo": "placemark-svg.js",
+    "minify": false,
+    "namespace": "ym"
+}

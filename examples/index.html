@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Placemark with path support - example</title>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .map {
+            width: 100%;
+            height: 100%;
+        }
+        .fa {
+            font-size: 1.5rem;
+            color: #FFFFFF;
+        }
+    </style>
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug&ns=ym"></script>
+
+    <script src="/build/placemark-svg.js"></script>
+    <script>
+        ym.ready(['Map', 'Placemark'])
+            .then(function (ym) {
+                var map = new ym.Map('map', {
+                        center: [55.74524234796502, 37.586730756347656],
+                        zoom: 11,
+                        controls: []
+                    });
+                ym.modules.require([
+                    'svg.Placemark',
+                    'svg.preset'
+                    ])
+                    .spread(function(PlacemarkSVG) {
+                        // map.geoObjects.add(new PlacemarkSVG(map.getCenter(), null, {iconLabel: 'fa fa-fort-awesome'}));
+
+                        map.geoObjects.add(new ym.Placemark(map.getCenter(), null, {preset: 'svg#Placemark'}));
+
+                        map.events.add('click', function (event) {
+                            console.log('========', 'click')
+                            map.geoObjects.add(
+                                new PlacemarkSVG(event.get('coords'))
+                            );
+                        });
+                    });
+            }).fail(onError);
+
+        function onError (err) {
+            console.error(err);
+        }
+    </script>
+</head>
+<body>
+    <div id="map" class="map"></div>
+</body>
+</html>
