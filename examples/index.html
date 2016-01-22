@@ -4,6 +4,7 @@
     <title>Placemark with path support - example</title>
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
     <style>
         html, body {
             width: 100%;
@@ -20,10 +21,13 @@
             color: #FFFFFF;
         }
     </style>
+</head>
+<body>
+    <div id="map" class="map"></div>
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug&ns=ym"></script>
 
-    <script src="/build/placemark-svg.js"></script>
+    <script src="/build/ymap-svg-icon.js"></script>
     <script>
         ym.ready(['Map', 'Placemark'])
             .then(function (ym) {
@@ -33,18 +37,15 @@
                         controls: []
                     });
                 ym.modules.require([
-                    'svg.Placemark',
                     'svg.preset'
                     ])
-                    .spread(function(PlacemarkSVG) {
-                        // map.geoObjects.add(new PlacemarkSVG(map.getCenter(), null, {iconLabel: 'fa fa-fort-awesome'}));
+                    .spread(function() {
 
-                        map.geoObjects.add(new ym.Placemark(map.getCenter(), null, {preset: 'svg#Placemark'}));
+                        map.geoObjects.add(new ym.Placemark(map.getCenter(), null, {preset: 'custom#svgIcon'}));
 
                         map.events.add('click', function (event) {
-                            console.log('========', 'click')
                             map.geoObjects.add(
-                                new PlacemarkSVG(event.get('coords'))
+                                new ym.Placemark(event.get('coords'), null, {preset: 'custom#svgIcon'})
                             );
                         });
                     });
@@ -54,8 +55,5 @@
             console.error(err);
         }
     </script>
-</head>
-<body>
-    <div id="map" class="map"></div>
 </body>
 </html>

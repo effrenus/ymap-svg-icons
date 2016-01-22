@@ -7,7 +7,7 @@ ym.modules.define('svg.preset', [
     'svg.layout'
 ], function (provide, presets) {
 
-    presets.add('svg#Placemark', {
+    presets.add('custom#svgIcon', {
         iconLayout: 'svg#iconLayout'
     });
 

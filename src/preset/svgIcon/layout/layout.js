@@ -26,8 +26,6 @@ ym.modules.define(
                 build: function () {
                     IconLayout.superclass.build.call(this);
 
-                    // this.monitor = new Monitor(this.getData().options);
-                    // this.monitor.add('canvas', this._onCanvasChanged, this);
                     this.options = this.getData().options;
 
                     domStyle.css(this.getElement(), {
@@ -43,7 +41,6 @@ ym.modules.define(
                 },
 
                 _onCanvasChanged: function (canvas) {
-                    console.log(canvas)
                     var shape = {
                         type: 'Rectangle',
                         coordinates: [
