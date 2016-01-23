@@ -1,3 +1,4 @@
+/* flow */
 ym.modules.define(
     'svg.canvasBuilder',
     [
@@ -5,7 +6,7 @@ ym.modules.define(
         'util.dom.style',
         'vow'
     ],
-    function (provide, domElement, domStyle, vow) {
+    function (provide: Function, domElement: Object, domStyle: Object, vow: Object) {
 
         var NS = 'http://www.w3.org/2000/svg';
 
@@ -14,21 +15,26 @@ ym.modules.define(
          * @param  {HTMLElement} svgElement
          * @return {Promise}
          */
-        function toCanvas (svgElement) {
+        function toCanvas (svgElement: HTMLElement): Promise {
             var deferred = vow.defer(),
-                svgData = new XMLSerializer().serializeToString(svgElement);
-                blob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                svgData: string = new XMLSerializer().serializeToString(svgElement),
+                blob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'}),
                 blobURL = (window.URL || window.webkitURL || window).createObjectURL(blob),
-                image = document.createElement('img'),
-                canvas = document.createElement('canvas');
+                image: HTMLImageElement = document.createElement('img'),
+                canvas: HTMLCanvasElement = document.createElement('canvas');
 
             image.onload = function () {
                 domStyle.attr(
                     canvas,
                     {width: image.width, height: image.height}
                 );
-                canvas.getContext('2d').drawImage(image, 0, 0);
-                deferred.resolve(canvas);
+                var ctx = canvas.getContext('2d');
+                if (ctx == null) {
+                    deferred.reject('Canvas getContext error');
+                } else if (ctx instanceof CanvasRenderingContext2D) {
+                    ctx.drawImage(image, 0, 0);
+                    deferred.resolve(canvas);
+                }
                 clear();
             }
             image.onerror = function () {
@@ -46,7 +52,7 @@ ym.modules.define(
         }
 
         provide({
-            build: function (options) {
+            build: function (options: Object): Object {
                 if (typeof options.path != 'string') {
                     throw new Error('Expect `path` to be string');
                 }

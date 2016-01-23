@@ -1,3 +1,4 @@
+/* flow */
 ym.modules.define(
     'svg.layout',
     [
@@ -10,11 +11,11 @@ ym.modules.define(
         'svg.canvasBuilder',
         'svg.pathCollection'
     ],
-    function (provide, templateLayoutFactory, utilCss, Monitor,
+    function (provide: Function, templateLayoutFactory, utilCss, Monitor,
         layoutStorage, domStyle, domElement, canvasBuilder, svgPathCollection) {
 
-        var ICON_CLASS = utilCss.addPrefix('svg-icon'),
-            LABEL_CLASS = utilCss.addPrefix('svg-label');
+        var ICON_CLASS: string = utilCss.addPrefix('svg-icon'),
+            LABEL_CLASS: string = utilCss.addPrefix('svg-label');
 
         var IconLayout = templateLayoutFactory.createClass(
             [
@@ -23,7 +24,7 @@ ym.modules.define(
                 '</ymaps>'
             ].join(''),
             {
-                build: function () {
+                build: function (): void {
                     IconLayout.superclass.build.call(this);
 
                     this.options = this.getData().options;
@@ -40,7 +41,7 @@ ym.modules.define(
                         .then(this._onCanvasChanged.bind(this));
                 },
 
-                _onCanvasChanged: function (canvas) {
+                _onCanvasChanged: function (canvas: HTMLCanvasElement): void {
                     var shape = {
                         type: 'Rectangle',
                         coordinates: [
@@ -57,16 +58,12 @@ ym.modules.define(
                     this.options.getParent().set('offset', [-canvas.width / 2, -canvas.height]);
 
                     this._setupCanvas();
-                    this._setupIcon();
+                    this._setupLabel();
 
                     this.events.fire('shapechange');
                 },
 
-                _setupIcon: function () {
-                    this._setupLabel();
-                },
-
-                _setupLabel: function () {
+                _setupLabel: function (): void {
                     var labelElement = domElement.findByClassName(this.getElement(), LABEL_CLASS);
                     domStyle.css(labelElement, {
                         position: 'absolute',
@@ -79,7 +76,7 @@ ym.modules.define(
                     labelElement.className += ' ' + this.getData().options.get('label', '');
                 },
 
-                _setupCanvas: function () {
+                _setupCanvas: function (): void {
                     var canvas = this.getData().options.get('canvas');
 
                     if (!canvas) {
@@ -96,7 +93,7 @@ ym.modules.define(
                     }
                 },
 
-                _removeCanvas: function () {
+                _removeCanvas: function (): void {
                     this._canvas && this._canvas.remove();
                     this._canvas = null;
                 }

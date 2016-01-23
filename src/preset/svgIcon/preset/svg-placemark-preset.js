@@ -1,9 +1,11 @@
+/* flow */
 /**
  * @fileOverview
  *
  */
 ym.modules.define('svg.preset', [
     'option.presetStorage',
+
     'svg.layout'
 ], function (provide, presets) {
 
@@ -11,5 +13,5 @@ ym.modules.define('svg.preset', [
         iconLayout: 'svg#iconLayout'
     });
 
-    provide(true);
+    provide({});
 });

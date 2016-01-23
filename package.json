@@ -6,7 +6,7 @@
   "scripts": {
     "build": "ymb build",
     "watch": "ymb watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "flow check"
   },
   "keywords": [
     "yandex-map",
@@ -16,6 +16,9 @@
   "author": "Alexey Sazonov",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-plugin-transform-flow-strip-types": "^6.4.0",
+    "flow-bin": "^0.20.1",
     "ymb": "^0.3.45"
   }
 }

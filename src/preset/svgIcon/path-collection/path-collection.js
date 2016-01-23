@@ -1,3 +1,4 @@
+/* flow */
 ym.modules.define(
     'svg.pathCollection',
     function (provide) {
