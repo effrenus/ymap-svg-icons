@@ -1,6 +1,6 @@
 /* flow */
 ym.modules.define(
-    'svg.pathCollection',
+    'svgIcon.pathCollection',
     function (provide) {
 
         provide({

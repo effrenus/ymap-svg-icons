@@ -1,6 +1,6 @@
 /* flow */
 ym.modules.define(
-    'svg.layout',
+    'svgIcon.layout',
     [
         'templateLayoutFactory',
         'util.css',
@@ -8,8 +8,8 @@ ym.modules.define(
         'layout.storage',
         'util.dom.style',
         'util.dom.element',
-        'svg.canvasBuilder',
-        'svg.pathCollection'
+        'svgIcon.canvasBuilder',
+        'svgIcon.pathCollection'
     ],
     function (provide: Function, templateLayoutFactory, utilCss, Monitor,
         layoutStorage, domStyle, domElement, canvasBuilder, svgPathCollection) {

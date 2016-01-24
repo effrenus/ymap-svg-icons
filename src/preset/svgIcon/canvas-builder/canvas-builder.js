@@ -1,6 +1,6 @@
 /* flow */
 ym.modules.define(
-    'svg.canvasBuilder',
+    'svgIcon.canvasBuilder',
     [
         'util.dom.element',
         'util.dom.style',

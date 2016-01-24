@@ -33,11 +33,11 @@
             .then(function (ym) {
                 var map = new ym.Map('map', {
                         center: [55.74524234796502, 37.586730756347656],
-                        zoom: 11,
+                        zoom: 5,
                         controls: []
                     });
                 ym.modules.require([
-                    'svg.preset'
+                    'svgIcon'
                     ])
                     .spread(function() {
 
