@@ -25,6 +25,7 @@
 <body>
     <div id="map" class="map"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg.js"></script>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug&ns=ym"></script>
 
     <script src="/build/ymap-svg-icon.js"></script>
@@ -40,8 +41,7 @@
                     'svgIcon'
                     ])
                     .spread(function() {
-
-                        map.geoObjects.add(new ym.Placemark(map.getCenter(), null, {preset: 'custom#svgIcon'}));
+                        map.geoObjects.add(new ym.Placemark(map.getCenter(), null, {preset: 'custom#svgIcon', iconLabel: 'fa fa-fort-awesome', iconFill: '#23aea6'}));
 
                         map.events.add('click', function (event) {
                             map.geoObjects.add(

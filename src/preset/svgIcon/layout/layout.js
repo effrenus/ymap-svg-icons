@@ -30,37 +30,36 @@ ym.modules.define(
                     this.options = this.getData().options;
 
                     domStyle.css(this.getElement(), {
-                        position: 'absolute'
+                        position: 'absolute',
+                        visibility: 'hidden'
                     });
 
-                    canvasBuilder
-                        .build({
-                            path: this.options.get('path', svgPathCollection.SQUARE_PIN),
-                            fill: this.options.get('fill', '#555555')
-                        })
-                        .then(this._onCanvasChanged.bind(this));
+                    this._setupAll();
+
+                    // We need update icon offset, but could do that only after layout is builded
+                    window.setTimeout(this._onAfterBuild.bind(this), 0);
                 },
 
-                _onCanvasChanged: function (canvas: HTMLCanvasElement): void {
-                    var shape = {
-                        type: 'Rectangle',
-                        coordinates: [
-                            [0, 0],
-                            [canvas.width, canvas.height]
-                        ]
-                    };
+                _setupAll: function (): void {
+                    this._canvas = canvasBuilder.build({
+                        path: this.options.get('path', svgPathCollection.SQUARE_PIN),
+                        fill: this.options.get('fill', '#555555')
+                    });
+
+                    var shape: Object = {
+                            type: 'Rectangle',
+                            coordinates: [
+                                [0, 0],
+                                [this._canvas.width, this._canvas.height]
+                            ]
+                        };
 
                     this.options.set({
-                        canvas: canvas,
                         shape: this.options.get('shape', shape)
                     });
 
-                    this.options.getParent().set('offset', [-canvas.width / 2, -canvas.height]);
-
                     this._setupCanvas();
                     this._setupLabel();
-
-                    this.events.fire('shapechange');
                 },
 
                 _setupLabel: function (): void {
@@ -71,26 +70,25 @@ ym.modules.define(
                         right: 0,
                         bottom: 0,
                         left: 0,
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        lineHeight: this._canvas.height + 'px'
                     });
                     labelElement.className += ' ' + this.getData().options.get('label', '');
                 },
 
                 _setupCanvas: function (): void {
-                    var canvas = this.getData().options.get('canvas');
+                    domElement
+                        .findByClassName(this.getElement(), ICON_CLASS)
+                        .appendChild(this._canvas);
+                },
 
-                    if (!canvas) {
-                        this._removeCanvas();
-                        return;
-                    }
+                _onAfterBuild: function () {
+                    var canvas: HTMLCanvasElement = this._canvas;
 
-                    if (canvas != this._canvas) {
-                        this._removeCanvas();
-                        this._canvas = canvas;
-                        domElement
-                            .findByClassName(this.getElement(), ICON_CLASS)
-                            .appendChild(this._canvas);
-                    }
+                    this.options.getParent().set('offset', [-canvas.width / 2, -canvas.height]);
+                    domStyle.css(this.getElement(), {
+                        visibility: 'visible'
+                    });
                 },
 
                 _removeCanvas: function (): void {
