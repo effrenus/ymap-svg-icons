@@ -4,9 +4,10 @@ ym.modules.define(
     [
         'util.dom.element',
         'util.dom.style',
-        'vow'
+        'vow',
+        'svgIcon.cache'
     ],
-    function (provide: Function, domElement: Object, domStyle: Object, vow: Object) {
+    function (provide: Function, domElement: Object, domStyle: Object, vow: Object, cache: Object) {
 
         /**
          * Apply matrix transform to coordinates
@@ -41,23 +42,38 @@ ym.modules.define(
             return o;
         }
 
+        function getDataFromPath (path) {
+            var bbox = Snap.path.getBBox(path),
+                transformMatrix = [1, 0, 0, 1, -bbox.x, -bbox.y];
+
+            return {
+                path: translate(Snap.path.toCubic(path), transformMatrix),
+                width: bbox.width,
+                height: bbox.height
+            };
+        }
+
         provide({
             build: function (options: Object): HTMLCanvasElement {
                 var canvas = document.createElement('canvas'),
-                    bbox = Snap.path.getBBox(options.path),
-                    transformMatrix = [1, 0, 0, 1, -bbox.x, -bbox.y],
-                    path = translate(Snap.path.toCubic(options.path), transformMatrix);
+                    path = options.path,
+                    pathData = cache.get(path);
+
+                if (!pathData) {
+                    pathData = getDataFromPath(path);
+                    cache.set(path, pathData);
+                }
 
                 var ctx = canvas.getContext('2d');
 
-                canvas.width = bbox.width;
-                canvas.height = bbox.height;
+                canvas.width = pathData.width;
+                canvas.height = pathData.height;
 
                 ctx.beginPath();
                 ctx.fillStyle = options.fill;
-                path.forEach(function (cm) {
+                pathData.path.forEach(function (cm) {
                     var canvasCmd = cm[0].toLowerCase() == 'm' ? 'moveTo' : 'bezierCurveTo';
-                    ctx[canvasCmd].apply(ctx, cm.splice(1));
+                    ctx[canvasCmd].apply(ctx, cm.slice(1));
                 });
                 ctx.fill();
 
