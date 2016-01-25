@@ -43,7 +43,8 @@ ym.modules.define(
                 _setupAll: function (): void {
                     this._canvas = canvasBuilder.build({
                         path: this.options.get('path', svgPathCollection.SQUARE_PIN),
-                        fill: this.options.get('fill', '#555555')
+                        fill: this.options.get('fill', '#555555'),
+                        scale: this.options.get('scale', 1),
                     });
 
                     var shape: Object = {

@@ -28,7 +28,7 @@ ym.modules.define(
          * @param  {Array[Number]} matrix
          * @return {Array[]}
          */
-        function translate (path, matrix) {
+        function transform (path, matrix) {
             var o = [];
 
             path.forEach(function (command) {
@@ -42,14 +42,23 @@ ym.modules.define(
             return o;
         }
 
-        function getDataFromPath (path) {
+        function scale (path, scaleFactor) {
+            return transform(path, [scaleFactor, 0, 0, scaleFactor, 0, 0]);
+        }
+
+        function translate (path, x, y) {
+            return transform(path, [1, 0, 0, 1, x, y]);
+        }
+
+        function getDataFromPath (path, options) {
             var bbox = Snap.path.getBBox(path),
-                transformMatrix = [1, 0, 0, 1, -bbox.x, -bbox.y];
+                path = translate(Snap.path.toCubic(path), -bbox.x, -bbox.y),
+                path = scale(path, options.scale);
 
             return {
-                path: translate(Snap.path.toCubic(path), transformMatrix),
-                width: bbox.width,
-                height: bbox.height
+                path: path,
+                width: bbox.width * options.scale,
+                height: bbox.height * options.scale
             };
         }
 
@@ -60,7 +69,7 @@ ym.modules.define(
                     pathData = cache.get(path);
 
                 if (!pathData) {
-                    pathData = getDataFromPath(path);
+                    pathData = getDataFromPath(path, options);
                     cache.set(path, pathData);
                 }
 
