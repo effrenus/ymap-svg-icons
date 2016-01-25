@@ -19,6 +19,7 @@
     "babel-core": "^6.4.5",
     "babel-plugin-transform-flow-strip-types": "^6.4.0",
     "flow-bin": "^0.20.1",
+    "gulp-babel": "^6.1.1",
     "ymb": "^0.3.45"
   }
 }
