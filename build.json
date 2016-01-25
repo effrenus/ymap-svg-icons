@@ -1,6 +1,6 @@
 {
-    "concatTo": "ymap-svg-icon.js",
-    "minify": false,
+    "concatTo": "ymap-svg-icon.min.js",
+    "minify": true,
     "namespace": "ym",
     "babel": true
 }

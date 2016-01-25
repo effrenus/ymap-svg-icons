@@ -9,7 +9,7 @@ Loading
 2. Load both [Yandex Maps JS API 2.1](https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/general-docpage/) and module source code by adding following code
 ```html
 <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-<script src="/ymap-svg-icon.min.js"></script>
+<script src="ymap-svg-icon.min.js"></script>
 ```
 
 3. Get access to module functions by using [ymaps.modules.require](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/modules.require-docpage/) method
@@ -28,14 +28,15 @@ ymaps.modules.require(['svgIcon'], function () {
 });
 ```
 
-Settings
+Params
 ----
 
-`iconPath` - string describing SVG path
-
-`iconPathFill` - `fill` param for path (path's color)
-
-`iconLabel` - classname, if want to show icon inside marker (for example it might be icon classes from [FontAwesome](http://fortawesome.github.io/Font-Awesome/) or [Glyphicons](http://glyphicons.bootstrapcheatsheets.com/))
+| Parameter | Default value | Decription |
+|---------|-----------------------|----------|
+| `iconPath` | SQUARE_PIN | string describing SVG path |
+| `iconPathFill` | #555555 | fill color |
+| `iconLabel` | - | classname, if want to show icon inside marker (for example it might be icon classes from [FontAwesome](http://fortawesome.github.io/Font-Awesome/) or [Glyphicons](http://glyphicons.bootstrapcheatsheets.com/)) |
+| `iconScale` | 1 | scale factor |
 
 Predefined paths
 ----
@@ -45,7 +46,7 @@ To use require module `svgIcon.pathCollection`. Path names: `SHIELD, ROUTE, SQUA
 Demo
 ----
 
-Soon.
+http://effrenus.github.io/ymap-svg-icons/
 
 Examples
 --------
