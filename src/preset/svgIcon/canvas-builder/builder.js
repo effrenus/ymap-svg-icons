@@ -5,9 +5,11 @@ ym.modules.define(
         'util.dom.element',
         'util.dom.style',
         'vow',
-        'svgIcon.cache'
+        'svgIcon.cache',
+        'svg.tools'
     ],
-    function (provide: Function, domElement: Object, domStyle: Object, vow: Object, cache: Object) {
+    function (provide: Function, domElement: Object, domStyle: Object,
+        vow: Object, cache: Object, svgTools: Object) {
 
         /**
          * Apply matrix transform to coordinates
@@ -51,8 +53,8 @@ ym.modules.define(
         }
 
         function getDataFromPath (path, options) {
-            var bbox = Snap.path.getBBox(path),
-                path = translate(Snap.path.toCubic(path), -bbox.x, -bbox.y),
+            var bbox = svgTools.getBBox(path),
+                path = translate(svgTools.toCubic(path), -bbox.x, -bbox.y),
                 path = scale(path, options.scale);
 
             return {

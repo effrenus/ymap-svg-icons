@@ -36,7 +36,11 @@ ym.modules.define(
 
                     this._setupAll();
 
-                    // We need update icon offset, but could do that only after layout is builded
+                    // We need to update icon offset,
+                    // but could do that only after the layout (view in Overlay terms) is builded.
+                    // Another way, use custom Placemark class
+                    // Any suggestions?
+                    // HACK!!!
                     window.setTimeout(this._onAfterBuild.bind(this), 0);
                 },
 

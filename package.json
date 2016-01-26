@@ -6,7 +6,8 @@
   "scripts": {
     "build": "ymb build",
     "watch": "ymb watch",
-    "test": "flow check"
+    "test": "flow check",
+    "serve": "python -m SimpleHTTPServer 8000"
   },
   "keywords": [
     "yandex-map",
