@@ -11,10 +11,20 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            background: #CCC;
+        }
+        .hero-unit {
+            width: 85%;
+            margin: 0 auto;
+            padding-top: 30px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            font-family: Arial, sans-serif;
         }
         .map {
             width: 100%;
-            height: 100%;
+            height: 70vh;
         }
         .fa {
             font-size: 1.5rem;
@@ -23,9 +33,12 @@
     </style>
 </head>
 <body>
-    <div id="map" class="map"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg.js"></script>
+    <div class="hero-unit">
+        <h1>SVG icons YMAPS API</h1>
+        <div id="map" class="map"></div>
+    </div>
+
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=debug&ns=ym"></script>
 
     <script src="./ymap-svg-icon.js"></script>
