@@ -1,4 +1,5 @@
 /* flow */
+/* eslint max-len: [1] */
 ym.modules.define(
     'svgIcon.pathCollection',
     function (provide) {

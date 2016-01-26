@@ -34,8 +34,9 @@ ym.modules.define(
             var o = [];
 
             path.forEach(function (command) {
-                var l = [command[0]];
-                for (var i = 1; i < command.length; i += 2) {
+                var l = [command[0]],
+                    i;
+                for (i = 1; i < command.length; i += 2) {
                     l = l.concat(applyMatrix([command[i], command[i + 1]], matrix));
                 }
                 o.push(l);
@@ -53,9 +54,10 @@ ym.modules.define(
         }
 
         function getDataFromPath (path, options) {
-            var bbox = svgTools.getBBox(path),
-                path = translate(svgTools.toCubic(path), -bbox.x, -bbox.y),
-                path = scale(path, options.scale);
+            var bbox = svgTools.getBBox(path);
+
+            path = translate(svgTools.toCubic(path), -bbox.x, -bbox.y);
+            path = scale(path, options.scale);
 
             return {
                 path: path,
@@ -68,14 +70,15 @@ ym.modules.define(
             build: function (options: Object): HTMLCanvasElement {
                 var canvas = document.createElement('canvas'),
                     path = options.path,
-                    pathData = cache.get(path);
+                    pathData = cache.get(path),
+                    ctx;
 
                 if (!pathData) {
                     pathData = getDataFromPath(path, options);
                     cache.set(path, pathData);
                 }
 
-                var ctx = canvas.getContext('2d');
+                ctx = canvas.getContext('2d');
 
                 canvas.width = pathData.width;
                 canvas.height = pathData.height;

@@ -1,3 +1,10 @@
 {
-    "preset": "yandex"
+    "extends": "yandex",
+    "parser": "babel-eslint",
+    "plugins": ["flowtype"],
+    "rules": {
+        "one-var": [2, "always"],
+        "space-before-function-paren": [1, "always"],
+        "eqeqeq": [0]
+    }
 }

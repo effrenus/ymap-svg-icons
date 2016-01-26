@@ -17,10 +17,10 @@ ym.modules.define(
         var ICON_CLASS: string = utilCss.addPrefix('svg-icon'),
             LABEL_CLASS: string = utilCss.addPrefix('svg-label');
 
-        var IconLayout = templateLayoutFactory.createClass(
+        var IconLayout = templateLayoutFactory.createClass(/* eslint one-var: 1 */
             [
                 '<ymaps class=' + ICON_CLASS + ' style="display: block">',
-                    '<i class="' + LABEL_CLASS + '"></i>',
+                '<i class="' + LABEL_CLASS + '"></i>',
                 '</ymaps>'
             ].join(''),
             {
@@ -52,12 +52,12 @@ ym.modules.define(
                     });
 
                     var shape: Object = {
-                            type: 'Rectangle',
-                            coordinates: [
-                                [0, 0],
-                                [this._canvas.width, this._canvas.height]
-                            ]
-                        };
+                        type: 'Rectangle',
+                        coordinates: [
+                            [0, 0],
+                            [this._canvas.width, this._canvas.height]
+                        ]
+                    };
 
                     this.options.set({
                         shape: this.options.get('shape', shape)
@@ -108,4 +108,4 @@ ym.modules.define(
         provide(IconLayout);
 
     }
-)
+);

@@ -1,12 +1,13 @@
 {
   "name": "ymap-placemark-svg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SVG path support for Placemark",
   "main": "index.js",
   "scripts": {
     "build": "ymb build",
     "watch": "ymb watch",
-    "test": "flow check",
+    "flow-check": "flow check",
+    "lint": "eslint ./src",
     "serve": "python -m SimpleHTTPServer 8000"
   },
   "keywords": [
@@ -18,7 +19,11 @@
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.4.5",
+    "babel-eslint": "^4.1.6",
     "babel-plugin-transform-flow-strip-types": "^6.4.0",
+    "eslint": "^1.10.3",
+    "eslint-config-yandex": "^1.0.5",
+    "eslint-plugin-flowtype": "^1.0.0",
     "flow-bin": "^0.20.1",
     "gulp-babel": "^6.1.1",
     "ymb": "^0.3.45"
