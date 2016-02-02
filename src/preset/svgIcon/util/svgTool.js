@@ -3,8 +3,7 @@
  * @see https://github.com/adobe-webplatform/Snap.svg
  */
 ym.modules.define(
-    'svg.tools',
-    [],
+    'util.svgTools',
     function (provide) {
         var has = "hasOwnProperty",
             p2s = /,?([a-z]),?/gi,

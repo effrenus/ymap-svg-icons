@@ -6,7 +6,7 @@ ym.modules.define(
         'util.dom.style',
         'vow',
         'svgIcon.cache',
-        'svg.tools'
+        'util.svgTools'
     ],
     function (provide: Function, domElement: Object, domStyle: Object,
         vow: Object, cache: Object, svgTools: Object) {

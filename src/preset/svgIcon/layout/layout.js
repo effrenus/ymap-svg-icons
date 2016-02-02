@@ -8,11 +8,12 @@ ym.modules.define(
         'layout.storage',
         'util.dom.style',
         'util.dom.element',
+        'system.nextTick',
         'svgIcon.canvasBuilder',
         'svgIcon.pathCollection'
     ],
     function (provide: Function, templateLayoutFactory, utilCss, Monitor,
-        layoutStorage, domStyle, domElement, canvasBuilder, svgPathCollection) {
+        layoutStorage, domStyle, domElement, nextTick, canvasBuilder, svgPathCollection) {
 
         var ICON_CLASS: string = utilCss.addPrefix('svg-icon'),
             LABEL_CLASS: string = utilCss.addPrefix('svg-label');
@@ -38,20 +39,17 @@ ym.modules.define(
 
                     // We need to update icon offset,
                     // but could do that only after the layout (view in Overlay terms) is builded.
-                    // Another way, use custom Placemark class
-                    // Any suggestions?
-                    // HACK!!!
-                    window.setTimeout(this._onAfterBuild.bind(this), 0);
+                    nextTick(this._onAfterBuild.bind(this));
                 },
 
                 _setupAll: function (): void {
                     this._canvas = canvasBuilder.build({
                         path: this.options.get('path', svgPathCollection.SQUARE_PIN),
                         fill: this.options.get('fill', '#555555'),
-                        scale: this.options.get('scale', 1),
+                        scale: this.options.get('scale', 1)
                     });
 
-                    var shape: Object = {
+                    var defaultIconShape: Object = {
                         type: 'Rectangle',
                         coordinates: [
                             [0, 0],
@@ -60,7 +58,7 @@ ym.modules.define(
                     };
 
                     this.options.set({
-                        shape: this.options.get('shape', shape)
+                        shape: this.options.get('shape', defaultIconShape)
                     });
 
                     this._setupCanvas();
@@ -85,6 +83,14 @@ ym.modules.define(
                     domElement
                         .findByClassName(this.getElement(), ICON_CLASS)
                         .appendChild(this._canvas);
+                    // base64 ver
+                    // domStyle.css(
+                    //     domElement.findByClassName(this.getElement(), ICON_CLASS),
+                    //     {
+                    //         width: this._canvas.width + 'px',
+                    //         height: this._canvas.height + 'px',
+                    //         background: 'url(' + this._canvas.toDataURL('image/png') + ')'
+                    //     });
                 },
 
                 _onAfterBuild: function () {
