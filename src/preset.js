@@ -3,10 +3,10 @@
  * @fileOverview
  *
  */
-ym.modules.define('svgIcon', [
+ym.modules.define('preset.svgIcon', [
     'option.presetStorage',
 
-    'svgIcon.layout'
+    'layout.svgIcon'
 ], function (provide, presets) {
 
     presets.add('custom#svgIcon', {

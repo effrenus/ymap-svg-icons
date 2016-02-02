@@ -1,6 +1,6 @@
 /* flow */
 ym.modules.define(
-    'svgIcon.layout',
+    'layout.svgIcon',
     [
         'templateLayoutFactory',
         'util.css',

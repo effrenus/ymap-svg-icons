@@ -5,11 +5,11 @@ ym.modules.define(
         'util.dom.element',
         'util.dom.style',
         'vow',
-        'svgIcon.cache',
+        'storage.svgIcon',
         'util.svgTools'
     ],
     function (provide: Function, domElement: Object, domStyle: Object,
-        vow: Object, cache: Object, svgTools: Object) {
+        vow: Object, storage: Object, svgTools: Object) {
 
         /**
          * Apply matrix transform to coordinates
@@ -70,12 +70,12 @@ ym.modules.define(
             build: function (options: Object): HTMLCanvasElement {
                 var canvas = document.createElement('canvas'),
                     path = options.path,
-                    pathData = cache.get(path),
+                    pathData = storage.get(path),
                     ctx;
 
                 if (!pathData) {
                     pathData = getDataFromPath(path, options);
-                    cache.set(path, pathData);
+                    storage.set(path, pathData);
                 }
 
                 ctx = canvas.getContext('2d');

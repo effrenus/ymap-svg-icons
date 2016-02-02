@@ -1,6 +1,5 @@
 ym.modules.define(
-    'svgIcon.cache',
-    [],
+    'storage.svgIcon',
     function (provide) {
         var KEY_PREFIX = 'path_',
             _cache = {},
